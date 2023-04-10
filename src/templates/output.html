@@ -1,0 +1,154 @@
+<!doctype html>
+<html ang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Dashboard</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- CSS -->
+	<link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="../static/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+</head>
+
+<!-- Body content -->
+<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-8 center">
+				<h2 class="white_text_title">Model Forecast for {{ticker}}</h2>
+			</div>
+			<div class="col-sm-2">
+				<br>
+				<a href="http://127.0.0.1:5000/" class="btn btn-lg btn-success">New Forecast (Home)</a>
+			</div>
+		</div>
+
+		<br>
+		<div class="col-sm-2"></div>
+		<img src={{rmd_img_url}} alt="resampled_mean_plot" height="542" width="942"><br>
+
+		<div class="row">
+			<div class="blank100"><!-- Blank Space --></div>
+		</div>
+
+		<div class="row">
+			<div class="col-sm-5">
+				<p><strong>Data trained from</strong></p>
+				<h2 class="white_text">{{min_date}}  to  {{max_date}}</h2>
+			</div>
+		</div><br>
+		<div class="row">
+			<div class="white_text_title center">
+				<strong>FB Prophet Model</strong>
+			</div>
+		</div><br>
+		<div class="center_row">
+			<div class="col-sm-1"></div>
+			<div class="col-sm-2">
+				<p><Strong>Forecast Date</Strong></p>
+				<h2 class="white_text">{{forecast_date}}</h2>
+			</div>
+			<div class="col-sm-3">
+				<p><Strong>Actual Close Price</Strong></p>
+				<h2 class="white_text">{{actual_cp}}</h2>
+			</div>
+			<div class="col-sm-3">
+				<p><Strong>Predicted Close Price</Strong></p>
+				<h2 class="white_text">{{forecast_cp}}</h2>
+			</div>
+			<div class="col-sm-3">
+				<p><Strong>Uncertainty</Strong></p>
+				<span class="green_text">+</span>
+				<span class="red_text">-</span>
+				<span class="blue_text">{{bound}}</span>
+			</div>
+		</div><br>
+
+		<div class="center_row">
+			<div class="col-sm-4">
+			<p><Strong>Forecast (Next day Closing Price)</Strong></p>
+			<h2 class="white_text">{{forecast_nd_cp}}</h2>
+			</div>
+		</div><br>
+
+		<div class="col-sm-2"></div>
+		<img class="center" src={{fb_img_url}} alt="FB_Prophet_graph" height="442" width="742">
+
+		<div class="row"><div class="blank100"><!-- Blank Space --></div></div>
+
+		<div class="row">
+			<div class="white_text_title center">
+				<strong>Regression Model</strong>
+			</div>
+		</div><br>
+		<div class="row">
+			<div class="col-sm-1"></div>
+			<div class="col-sm-2">
+				<p><Strong>Forecast Date</Strong></p>
+				<h2 class="white_text">{{forecast_date}}</h2>
+			</div>
+			<div class="col-sm-2">
+				<p><Strong>Actual Close Price</Strong></p>
+				<h2 class="white_text">{{actual_cp}}</h2>
+			</div>
+			<div class="col-sm-3">
+				<p><Strong>Linear Regression Predicted Close Price</Strong></p>
+				<h2 class="white_text">{{lin_forecast_cp}}</h2>
+			</div>
+			<div class="col-sm-3">
+				<p><Strong>Random Forest Regression Predicted Close Price</Strong></p>
+				<h2 class="white_text">{{rfg_forecast_cp}}</h2>
+			</div>
+		</div><br>
+
+		<div class="center_row">
+			<div class="col-sm-4">
+				<p><Strong>Forecast (Next day Close (Linear))</Strong></p>
+				<h2 class="white_text">{{lin_forecast_nd_cp}}</h2>
+			</div>
+			<div class="col-sm-4">
+				<p><Strong>Forecast (Next day Close (Random Forest))</Strong></p>
+				<h2 class="white_text">{{rfg_forecast_nd_cp}}</h2>
+			</div>
+		</div><br>
+
+		<div class="col-sm-2"></div>
+		<img src={{reg_img_url}} alt="regression_graph" height="442" width="742">
+
+		<div class="row"><div class="blank100"><!-- Blank Space --></div></div>
+
+		<div class="row">
+			<div class="col-sm-10">
+				<p><strong>{{ticker}} Major Holders </strong></p>
+				<ul class="white_text">{% for table in tables %}
+					{{ table|safe }}
+					{% endfor %}</ul>
+			</div>
+		</div><br>
+
+		<div class="row">
+			<div class="col-sm-10">
+				<p>
+					<strong>
+						Latest NEWS on {{ticker}}
+					</strong>
+				</p>
+				<h4 class="white_text">
+					<ul>
+					{% for _ in news %}
+					    <li>{{ _.title }} <a href="{{ _.link }}"> (link to post)</a></li>
+						<li>{{ _.relatedTickers }}</li><br><br>
+					{% endfor %}
+					</ul>
+				</h4>
+			</div>
+		</div>
+
+		<div class="row"><div class="blank100"><!-- Blank Space --></div></div>
+		<div class="row footer center"><Strong>2023W_AML-2404_Group B</Strong></div>
+
+	</div>
+</body>
+</html>
